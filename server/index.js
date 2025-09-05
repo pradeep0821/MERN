@@ -10,17 +10,15 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
-
-// Allow credentials so cookies are set across domains in dev/prod
+// ✅ CORS must come BEFORE routes
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // local dev frontend
+      "http://localhost:5173", // local dev
       "http://localhost:3000",
       "https://brilliant-moxie-595ab1.netlify.app", // production frontend
     ],
-    credentials: true, // allow cookies
+    credentials: true,
   })
 );
 
