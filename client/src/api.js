@@ -1,14 +1,13 @@
-const base = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const base =
+  process.env.NODE_ENV === "production"
+    ? "https://mern-production-2edc.up.railway.app" // your Railway backend
+    : "http://localhost:5000"; // local dev
 
 export async function apiFetch(path, options = {}) {
-  // Get token from localStorage (or sessionStorage)
-  const token = localStorage.getItem("token");
-
   const res = await fetch(base + "/api" + path, {
-    credentials: "include",
+    credentials: "include", // send cookies cross-site
     headers: {
       "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(options.headers || {}),
     },
     ...options,
