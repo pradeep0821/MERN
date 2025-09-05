@@ -7,8 +7,9 @@ const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 
 const app = express();
-app.use(express.json());
+
 app.use(cookieParser());
+app.use(express.json());
 
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
