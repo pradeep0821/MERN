@@ -1,9 +1,16 @@
 const base = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 export async function apiFetch(path, options = {}) {
+  // Get token from localStorage (or sessionStorage)
+  const token = localStorage.getItem("token");
+
   const res = await fetch(base + "/api" + path, {
-    credentials: "include", // <-- send cookies
-    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(options.headers || {}),
+    },
     ...options,
   });
 
