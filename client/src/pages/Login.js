@@ -11,6 +11,7 @@ export default function Login() {
     try {
       await apiFetch("/auth/login", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
       nav("/dashboard");

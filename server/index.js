@@ -14,7 +14,7 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
 // Allow credentials so cookies are set across domains in dev/prod
 app.use(cors({
-  origin: true,
+  origin: "https://brilliant-moxie-595ab1.netlify.app",
   credentials: true
 }));
 
