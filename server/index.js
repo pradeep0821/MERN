@@ -14,7 +14,7 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
 // Allow credentials so cookies are set across domains in dev/prod
 app.use(cors({
-  origin: CLIENT_URL,
+  origin: true,
   credentials: true
 }));
 
