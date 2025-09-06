@@ -1,33 +1,27 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-
-const authRoutes = require('./routes/auth');
+import express from "express";
+import cors from "cors";
 
 const app = express();
 
-app.use(cookieParser());
+// Allow Netlify frontend
+app.use(
+  cors({
+    origin: "https://brilliant-moxie-595ab1.netlify.app", // your frontend
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
+// Handle preflight requests explicitly
+app.options("*", cors());
+
 app.use(express.json());
 
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
-
-// Allow credentials so cookies are set across domains in dev/prod
-app.use(cors({
-  origin: [CLIENT_URL, 'https://brilliant-moxie-595ab1.netlify.app'],
-  credentials: true
-}));
-
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(()=> console.log('MongoDB connected'))
-.catch(err => console.error('MongoDB connect error:', err));
-
-app.use('/api/auth', authRoutes);
+// Example route
+app.post("/api/auth/register", (req, res) => {
+  res.json({ message: "Register route working!" });
+});
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, ()=> console.log(`Server running on ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
