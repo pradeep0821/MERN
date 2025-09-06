@@ -15,9 +15,10 @@ const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
 // Allow credentials so cookies are set across domains in dev/prod
 app.use(cors({
-  origin: "https://brilliant-moxie-595ab1.netlify.app",
+  origin: CLIENT_URL,
   credentials: true
 }));
+
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
